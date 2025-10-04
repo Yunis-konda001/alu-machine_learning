@@ -1,15 +1,25 @@
 #!/usr/bin/env python3
-"""
-This module provides a function to calculate,
-the sum of squares,
-of the first n natural numbers.
-"""
+'''
+    this function
+    calculates the derivative of a polynomial
+'''
 
 
-def summation_i_squared(n):
-    """
-    Calculate the sum of squares of the first n natural numbers.
-    """
-    if not isinstance(n, int) or n < 1:
+def poly_derivative(poly):
+    '''
+        calculates the derivative of a polynomial
+    '''
+    if not isinstance(poly, list) or not poly:
         return None
-    return n * (n + 1) * (2 * n + 1) // 6
+    for coefficient in poly:
+        if not isinstance(coefficient, (int, float)):
+            return None
+
+    # Calculate derivative
+    if len(poly) == 1:
+        return [0]
+    derivative = [
+        coefficient * power
+        for power, coefficient in enumerate(poly)
+    ][1:]
+    return derivative
