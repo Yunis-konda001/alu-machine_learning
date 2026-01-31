@@ -1,5 +1,6 @@
-
-n def shuffle_data(X, Y): that shuffles
+#!/usr/bin/env python3
+'''
+    Function def shuffle_data(X, Y): that shuffles
     the data points in two matrices the same way
 '''
 
