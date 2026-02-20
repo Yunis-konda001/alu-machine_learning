@@ -1,33 +1,40 @@
-#!/usr/bin/env python3
-"""
-Script that prints the location of a GitHub user
+cript that prints the location of a specific user:
 """
 
-import sys
+
 import requests
 import time
+from datetime import datetime
+
+
+def main(url):
+    """
+    - The user is passed as first argument of the script
+    with the full API URL, example: ./2-user_location.py
+    https://api.github.com/users/holbertonschool
+    - If the user doesn’t exist, print Not found
+    - If the status code is 403, print Reset in X min where X
+    is the number of minutes from now and the value of
+    X-Ratelimit-Reset
+    - Your code should not be executed when the file is
+    imported (you should use if __name__ == '__main__':)
+
+    """
+    response = requests.get(url)
+
+    if response.status_code == 404:
+        print("Not found")
+    elif response.status_code == 403:
+        reset_timestamp = int(response.headers["X-Ratelimit-Reset"])
+        current_timestamp = int(time.time())
+        reset_in_minutes = (reset_timestamp - current_timestamp) // 60
+        print("Reset in {} min".format(reset_in_minutes))
+    else:
+        print(response.json()["location"])
 
 
 if __name__ == "__main__":
-    url = sys.argv[1]
+    import sys
 
-    response = requests.get(url)
+    main(sys.argv[1])
 
-    # If rate limit exceeded
-    if response.status_code == 403:
-        reset_time = int(response.headers.get("X-RateLimit-Reset", 0))
-        current_time = int(time.time())
-        minutes = (reset_time - current_time) // 60
-        print(f"Reset in {minutes} min")
-
-    # If user not found
-    elif response.status_code == 404:
-        print("Not found")
-
-    # If user exists
-    elif response.status_code == 200:
-        data = response.json()
-        print(data.get("location"))
-
-    else:
-        print("Error")
