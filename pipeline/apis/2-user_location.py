@@ -1,4 +1,6 @@
-cript that prints the location of a specific user:
+#!/usr/bin/env python3
+"""
+    script that prints the location of a specific user:
 """
 
 
@@ -37,4 +39,3 @@ if __name__ == "__main__":
     import sys
 
     main(sys.argv[1])
-
