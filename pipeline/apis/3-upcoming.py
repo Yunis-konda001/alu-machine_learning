@@ -1,4 +1,6 @@
-cript that displays the upcoming launch
+#!/usr/bin/env python3
+"""
+    script that displays the upcoming launch
 """
 
 
