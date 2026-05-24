@@ -79,7 +79,7 @@ def ngram_bleu(references, sentence, n):
                 references_dictionary[gram] = ref.count(gram)
 
     matchings = {word: 0 for word in ngram_sentence}
-OB
+
     for ref in ngram_references:
         for gram in matchings.keys():
             if gram in ref:
